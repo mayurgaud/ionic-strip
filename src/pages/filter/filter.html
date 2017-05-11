@@ -12,17 +12,10 @@
         <ion-item>
             <ion-label>Year</ion-label>
             <ion-select [(ngModel)]="year" (ionChange)="onYearChange($event, year)">
-                <ion-option>1989</ion-option>
-                <ion-option>1990</ion-option>
-                <ion-option>1991</ion-option>
-                <ion-option>1992</ion-option>
-                <ion-option>1993</ion-option>
-                <ion-option>1994</ion-option>
-                <ion-option>1995</ion-option>
-                <ion-option>1996</ion-option>
-                <ion-option>1997</ion-option>
-                <ion-option>1998</ion-option>
-                <ion-option>1999</ion-option>
+                <ion-option>2017</ion-option>
+                <ion-option>2016</ion-option>
+                <ion-option>2015</ion-option>
+                <ion-option>2014</ion-option>
             </ion-select>
         </ion-item>
         <ion-item>
@@ -41,6 +34,9 @@
                 <ion-option value="11">November</ion-option>
                 <ion-option value="12">December</ion-option>
             </ion-select>
+        </ion-item>
+        <ion-item>
+            <button ion-button (click)="clearClick($event)">Clear All</button>
         </ion-item>
     </ion-list>
 </ion-content>

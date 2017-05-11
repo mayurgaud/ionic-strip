@@ -3,6 +3,7 @@ import {NavController} from 'ionic-angular';
 import {StripPage} from '../strip/strip';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
+import {ShareService} from '../services/ShareService'
 
 @Component({
     selector: 'page-home',
@@ -12,19 +13,60 @@ export class HomePage {
 
     items: any;
 
-    constructor(public navCtrl: NavController, public http: Http) {
-        this.http.get('http://104.131.168.232:3000/strips').map(res => res.json()).subscribe(data => {
-            this.items = data;
-        });
+    constructor(public navCtrl: NavController, public http: Http, private shareService: ShareService) {
+        var month = this.shareService.getMonth();
+        var year = this.shareService.getYear();
+
+        if (month && year) {
+            this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&month=' + month).map(res => res.json()).subscribe(data => {
+                this.items = data;
+            });
+        } else if (year) {
+            this.http.get('http://104.131.168.232:3000/strips?year=' + year).map(res => res.json()).subscribe(data => {
+                this.items = data;
+            });
+        } else if (month) {
+            this.http.get('http://104.131.168.232:3000/strips?month=' + month).map(res => res.json()).subscribe(data => {
+                this.items = data;
+            });
+        } else {
+            this.http.get('http://104.131.168.232:3000/strips').map(res => res.json()).subscribe(data => {
+                this.items = data;
+            });
+        }
+
     }
 
     doInfinite(infiniteScroll) {
+        var month = this.shareService.getMonth();
+        var year = this.shareService.getYear();
+
         setTimeout(() => {
-            this.http.get('http://104.131.168.232:3000/strips?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
-                for(var i = 0; i < data.length; i++) {
-                    this.items.push(data[i]);
-                }
-            });
+            if (month && year) {
+                this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                    for (var i = 0; i < data.length; i++) {
+                        this.items.push(data[i]);
+                    }
+                });
+            } else if (year) {
+                this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                    for (var i = 0; i < data.length; i++) {
+                        this.items.push(data[i]);
+                    }
+                });
+            } else if (month) {
+                this.http.get('http://104.131.168.232:3000/strips?month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                    for (var i = 0; i < data.length; i++) {
+                        this.items.push(data[i]);
+                    }
+                });
+            } else {
+                this.http.get('http://104.131.168.232:3000/strips?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                    for (var i = 0; i < data.length; i++) {
+                        this.items.push(data[i]);
+                    }
+                });
+            }
             infiniteScroll.complete();
         }, 500);
     }

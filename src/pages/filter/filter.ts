@@ -20,4 +20,11 @@ export class FilterPage {
     onYearChange(yearValue) {
         this.shareService.setYear(yearValue);
     }
+
+    clearClick() {
+        this.shareService.setMonth(0);
+        this.shareService.setYear(0);
+        this.month = 0;
+        this.year = 0;
+    }
 }
