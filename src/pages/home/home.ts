@@ -10,21 +10,21 @@ import 'rxjs/add/operator/map';
 })
 export class HomePage {
 
-    items = [];
+    items: any;
 
     constructor(public navCtrl: NavController, public http: Http) {
-        this.http.get('http://localhost:3000/strips').map(res => res.json()).subscribe(data => {
+        this.http.get('http://104.131.168.232:3000/strips').map(res => res.json()).subscribe(data => {
             this.items = data;
-            console.log(data);
         });
     }
 
     doInfinite(infiniteScroll) {
         setTimeout(() => {
-            for (let i = 0; i < 5; i++) {
-                this.items.push(this.items.length);
-            }
-
+            this.http.get('http://104.131.168.232:3000/strips?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                for(var i = 0; i < data.length; i++) {
+                    this.items.push(data[i]);
+                }
+            });
             infiniteScroll.complete();
         }, 500);
     }
