@@ -4,6 +4,7 @@ import {StripPage} from '../strip/strip';
 import {Http} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {ShareService} from '../services/ShareService'
+import {ENV} from '../../config/environment.prod'
 
 @Component({
     selector: 'page-home',
@@ -18,19 +19,19 @@ export class HomePage {
         var year = this.shareService.getYear();
 
         if (month && year) {
-            this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&month=' + month).map(res => res.json()).subscribe(data => {
+            this.http.get(ENV.API_URL + '?year=' + year + '&month=' + month).map(res => res.json()).subscribe(data => {
                 this.items = data;
             });
         } else if (year) {
-            this.http.get('http://104.131.168.232:3000/strips?year=' + year).map(res => res.json()).subscribe(data => {
+            this.http.get(ENV.API_URL + '?year=' + year).map(res => res.json()).subscribe(data => {
                 this.items = data;
             });
         } else if (month) {
-            this.http.get('http://104.131.168.232:3000/strips?month=' + month).map(res => res.json()).subscribe(data => {
+            this.http.get(ENV.API_URL + '?month=' + month).map(res => res.json()).subscribe(data => {
                 this.items = data;
             });
         } else {
-            this.http.get('http://104.131.168.232:3000/strips').map(res => res.json()).subscribe(data => {
+            this.http.get(ENV.API_URL).map(res => res.json()).subscribe(data => {
                 this.items = data;
             });
         }
@@ -43,25 +44,25 @@ export class HomePage {
 
         setTimeout(() => {
             if (month && year) {
-                this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                this.http.get(ENV.API_URL + '?year=' + year + '&month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
                     for (var i = 0; i < data.length; i++) {
                         this.items.push(data[i]);
                     }
                 });
             } else if (year) {
-                this.http.get('http://104.131.168.232:3000/strips?year=' + year + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                this.http.get(ENV.API_URL + '?year=' + year + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
                     for (var i = 0; i < data.length; i++) {
                         this.items.push(data[i]);
                     }
                 });
             } else if (month) {
-                this.http.get('http://104.131.168.232:3000/strips?month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                this.http.get(ENV.API_URL + '?month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
                     for (var i = 0; i < data.length; i++) {
                         this.items.push(data[i]);
                     }
                 });
             } else {
-                this.http.get('http://104.131.168.232:3000/strips?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
+                this.http.get(ENV.API_URL + '?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
                     for (var i = 0; i < data.length; i++) {
                         this.items.push(data[i]);
                     }
