@@ -15,8 +15,8 @@ export class HomePage {
     items: any;
 
     constructor(public navCtrl: NavController, public http: Http, private shareService: ShareService) {
-        var month = this.shareService.getMonth();
-        var year = this.shareService.getYear();
+        let month = this.shareService.getMonth();
+        let year = this.shareService.getYear();
 
         if (month && year) {
             this.http.get(ENV.API_URL + '?year=' + year + '&month=' + month).map(res => res.json()).subscribe(data => {
@@ -39,8 +39,8 @@ export class HomePage {
     }
 
     doInfinite(infiniteScroll) {
-        var month = this.shareService.getMonth();
-        var year = this.shareService.getYear();
+        let month = this.shareService.getMonth();
+        let year = this.shareService.getYear();
 
         setTimeout(() => {
             if (month && year) {
