@@ -3,12 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>{{this.stripTitle}}</ion-title>
+    <ion-title>{{this.strip.title}}</ion-title>
   </ion-navbar>
 </ion-header>
-
 <ion-content>
-  <ion-card (swipeleft)="nextImage($event, this.stripTitle)" (swiperight)="previousImage($event)">
-    <img src={{this.strip}} title={{this.stripTitle}}/>
+  <ion-card (swipeleft)="nextImage($event, this.strip)" (swiperight)="previousImage($event, this.strip)">
+    <img src={{this.strip.mainImage}} title={{this.strip.title}} />
+    <ion-icon (click)="favoriteImage($event, this.strip)"  ios="ios-heart" md="md-heart"></ion-icon>
   </ion-card>
 </ion-content>

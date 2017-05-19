@@ -45,25 +45,25 @@ export class HomePage {
     setTimeout(() => {
       if (month && year) {
         this.http.get(ENV.API_URL + '?year=' + year + '&month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.items.push(data[i]);
           }
         });
       } else if (year) {
         this.http.get(ENV.API_URL + '?year=' + year + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.items.push(data[i]);
           }
         });
       } else if (month) {
         this.http.get(ENV.API_URL + '?month=' + month + '&offset=' + this.items.length).map(res => res.json()).subscribe(data => {
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.items.push(data[i]);
           }
         });
       } else {
         this.http.get(ENV.API_URL + '?offset=' + this.items.length).map(res => res.json()).subscribe(data => {
-          for (var i = 0; i < data.length; i++) {
+          for (let i = 0; i < data.length; i++) {
             this.items.push(data[i]);
           }
         });
@@ -74,8 +74,7 @@ export class HomePage {
 
   itemTapped(event, item) {
     this.navCtrl.push(StripPage, {
-      stripTitle: item.title,
-      strip: item.mainImage,
+      item: item,
       items: this.items,
     });
   }

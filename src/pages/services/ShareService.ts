@@ -1,26 +1,43 @@
+import {Storage} from '@ionic/storage';
+import {Injectable} from "@angular/core";
+@Injectable()
 export class ShareService {
 
-    filterYear: number;
-    filterMonth: number;
+  filterYear: number;
+  filterMonth: number;
+  favItems = [];
+  constructor(public storage:Storage) {
+    this.filterYear = 0;
+    this.filterMonth = 0;
+    this.storage.get('favImages').then((val) => {
+      if(val) {
+        val.forEach((item) => {
+          this.favItems.push(item);
+        });
+      }
+    });
+  }
+  setYear(year) {
+    this.filterYear = year;
+  }
 
-    constructor() {
-        this.filterYear = 0;
-        this.filterMonth = 0;
-    }
+  getYear() {
+    return this.filterYear;
+  }
 
-    setYear(year) {
-        this.filterYear = year;
-    }
+  setMonth(month) {
+    this.filterMonth = month;
+  }
 
-    getYear() {
-        return this.filterYear;
-    }
+  getMonth() {
+    return this.filterMonth;
+  }
 
-    setMonth(month) {
-        this.filterMonth = month;
-    }
+  setFavItems(item) {
+    this.favItems.push(item);
+  }
 
-    getMonth() {
-        return this.filterMonth;
-    }
+  getFavItems() {
+    return this.favItems;
+  }
 }
