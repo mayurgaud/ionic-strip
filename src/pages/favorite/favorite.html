@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-list *ngFor="let item of strip;" (click)="itemTapped($event, item)">
+  <ion-card *ngFor="let item of strip;" (click)="itemTapped($event, item)">
     <img src={{item.frontImage}}/>
-  </ion-list>
+  </ion-card>
 </ion-content>
