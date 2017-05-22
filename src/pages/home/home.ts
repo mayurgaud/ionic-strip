@@ -73,10 +73,9 @@ export class HomePage {
     }
 
     itemTapped(event, item) {
-
         this.navCtrl.push(StripPage, {
-            stripTitle: item.title,
-            strip: item.mainImage
+            item: item,
+            items: this.items,
         });
     }
 }

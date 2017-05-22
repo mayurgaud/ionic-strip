@@ -8,7 +8,21 @@
 </ion-header>
 
 <ion-content>
-    <ion-card>
-        <img src={{this.strip}} title={{this.stripTitle}} />
+    <ion-card (swipeleft)="nextImage($event, this.strip)" (swiperight)="previousImage($event, this.strip)">
+        <img src={{this.strip.mainImage}} title={{this.strip.title}} />
+        <ion-row no-padding>
+            <ion-col>
+                <button ion-button clear small color="danger" (click)="favoriteImage($event, this.strip)" icon-left>
+                    <ion-icon name='star'></ion-icon>
+                    Favorite
+                </button>
+            </ion-col>
+            <ion-col text-right>
+                <button ion-button clear small color="danger" icon-left>
+                    <ion-icon name='share-alt'></ion-icon>
+                    Share
+                </button>
+            </ion-col>
+        </ion-row>
     </ion-card>
 </ion-content>
